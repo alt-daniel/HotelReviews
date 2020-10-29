@@ -2,6 +2,9 @@
     "folders": [
         {
             "path": "."
+        },
+        {
+            "path": "../Week 2 Les 4"
         }
     ]
 }
