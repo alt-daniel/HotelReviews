@@ -6,4 +6,6 @@ HOTEL_URL = "https://www.booking.com/hotel/index.en-gb.html?label=gen173nr-1DCAE
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_DIR = os.path.join(ROOT_DIR, "static")
 
-URL_CSV_PATH = os.path.join(STATIC_DIR, "urls.csv") 
+CITIES_URL_CSV_PATH = os.path.join(STATIC_DIR, "city_urls.csv")
+HOTELS_URL_CSV_PATH = os.path.join(STATIC_DIR, "hotel_urls.csv") 
+SCRAPED_RAW_REVIEWS_PATH = os.path.join(STATIC_DIR, "raw_reviews.csv") 

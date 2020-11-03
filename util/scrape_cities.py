@@ -4,7 +4,7 @@ import pandas as pd
 import sys
 sys.path.append('../')
 
-from config import BASE_URL, HOTEL_URL, URL_CSV_PATH
+from config import BASE_URL, HOTEL_URL, CITIES_URL_CSV_PATH
 
 #  Return urls for hotels to scrape
 page = requests.get(HOTEL_URL)
@@ -21,7 +21,7 @@ if page.status_code == 200:
 
     urls = pd.DataFrame({"url": eu_urls})
     if not urls.empty:
-        urls.to_csv(URL_CSV_PATH, header=True)
+        urls.to_csv(CITIES_URL_CSV_PATH, header=True)
 
 
 
