@@ -101,6 +101,9 @@ for url, hotel_name in zip(data.url, data.hotel_name):
         scrape = [hotel_name, nation, score, title, positive_review, negative_review]
         reviews.append(scrape)
 
+driver.close()
+driver.quit()
+
 import pandas as pd
 df = pd.DataFrame(reviews)
 df.columns = ['hotel_name','nation', 'score', 'title', 'positive_review', 'negative_review']
@@ -108,4 +111,3 @@ df.columns = ['hotel_name','nation', 'score', 'title', 'positive_review', 'negat
 if not df.empty:
     df.to_csv("raw_reviews.csv", header=True)
 
-driver.quit()
