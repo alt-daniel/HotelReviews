@@ -22,4 +22,16 @@ def dataframe_to_csv(dataframe, destination):
 
 def dataframe_to_pickle(dataframe, destination):
     dataframe.to_pickle(destination, header=True)
-    
+
+
+def pickle_model(model, destination):
+    """
+    Pickled and writes an object to a file as long as the file doesn't exist
+    :param object_to_dump: object that will be written
+    :param filepath: where the file is
+    """
+    if os.path.isfile(destination):
+        pass
+    else:
+        with open(destination, 'wb') as f:
+            pickle.dump(model, f)
