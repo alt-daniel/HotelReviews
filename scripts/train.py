@@ -2,7 +2,7 @@ import sys
 sys.path.append('../')
 from util.train_util import *
 from util.database_util import create_connection, df_to_db, db_to_df
-from util.file_util import pickle_to_dataframe, pickle_model
+from util.file_util import pickle_to_dataframe, pickle_model, get_pickled_object
 from config import MERGED_REVIEWS_PATH, RANDOM_FOREST_MODEL_PATH, LOGISTIC_REGRESSION_MODEL_PATH, NAIVE_BAYES_MODEL_PATH
 from sklearn import model_selection, feature_extraction, pipeline, naive_bayes, metrics
 from sklearn.ensemble import AdaBoostClassifier, RandomForestClassifier
@@ -24,15 +24,15 @@ vectorizer = create_vectorizer()
 feature_matrix = vectorizer.fit_transform(df_train['review'])
 
 print('---- Building model ----')
-model = build_model_logistic_regression(vectorizer)
+model = build_model_naive_bayes(vectorizer)
 
-print('---- train model ----')
+print('Train model .. ')
 model = train_model(model, feature_matrix, train_labels)
-print('Saved model to ' + NAIVE_BAYES_MODEL_PATH)
-pickle_model(model, LOGISTIC_REGRESSION_MODEL_PATH)
+print('Save model to ' + NAIVE_BAYES_MODEL_PATH + ' ..')
+# pickle_model(model, NAIVE_BAYES_MODEL_PATH)
 
 # Test classifier
-print("Calculating model metrics...\n")
+print("Calculating metrics ..")
 predicted, predicted_prob = test_model(model, df_test["review"].values)
 accuracy, precision, recall = get_common_metrics(test_labels, predicted)
 f1 = get_f1_score(precision, recall)
@@ -43,3 +43,52 @@ plot_roc_curve(test_labels, predicted)
 print(f"Accuracy: {accuracy} | Precision: {precision} | Recall: {recall}")
 print(f"F1 score: {f1}")
 print(f"AUC: {auc}")
+
+#########################################
+
+# Random Forest
+print('---- Building model ----')
+model2 = build_model_random_forest(vectorizer)
+
+print('Train model .. ')
+model2 = train_model(model2, feature_matrix, train_labels)
+print('Save model to ' + RANDOM_FOREST_MODEL_PATH + ' ..')
+pickle_model(model, RANDOM_FOREST_MODEL_PATH)
+
+# Test classifier
+print("Calculating metrics ..")
+predicted, predicted_prob = test_model(model2, df_test["review"].values)
+accuracy, precision, recall = get_common_metrics(test_labels, predicted)
+f1 = get_f1_score(precision, recall)
+auc = get_auc(test_labels, predicted)
+plot_confusion_matrix(test_labels, predicted)
+plot_roc_curve(test_labels, predicted)
+
+print(f"Accuracy: {accuracy} | Precision: {precision} | Recall: {recall}")
+print(f"F1 score: {f1}")
+print(f"AUC: {auc}")
+
+#############################################
+
+# Log Regression
+print('---- Building model ----')
+model2 = build_model_logistic_regression(vectorizer)
+
+print('Train model .. ')
+model2 = train_model(model2, feature_matrix, train_labels)
+print('Save model to ' + LOGISTIC_REGRESSION_MODEL_PATH + ' ..')
+# pickle_model(model, LOGISTIC_REGRESSION_MODEL_PATH)
+
+# Test classifier
+print("Calculating metrics ..")
+predicted, predicted_prob = test_model(model2, df_test["review"].values)
+accuracy, precision, recall = get_common_metrics(test_labels, predicted)
+f1 = get_f1_score(precision, recall)
+auc = get_auc(test_labels, predicted)
+plot_confusion_matrix(test_labels, predicted)
+plot_roc_curve(test_labels, predicted)
+
+print(f"Accuracy: {accuracy} | Precision: {precision} | Recall: {recall}")
+print(f"F1 score: {f1}")
+print(f"AUC: {auc}")
+##########################################

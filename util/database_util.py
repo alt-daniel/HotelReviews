@@ -20,6 +20,8 @@ def create_connection():
         print(f"Database error: {e}")
 
 
+
+
 def df_to_db(df, connection=create_connection()):
     """
     Transfers the review dataframe to the connected database

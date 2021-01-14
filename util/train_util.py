@@ -5,8 +5,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 def split_train_test(df, size, seed):
-    """
-    Splits a dataframe into a training and test dataframe
+    """ Splits a dataframe into a training and test dataframe
     :param df: dataframe to split
     :return: training dataframe, test dataframe
     """
@@ -14,8 +13,7 @@ def split_train_test(df, size, seed):
     return df_train, df_test
 
 def create_vectorizer(feature_count=1000, ngram_range=(1, 2)):
-    """
-    Create vectorizer object
+    """ Create vectorizer object
     :param feature_count: maximum amount of features
     :param ngram_range: tuple describing what type of ngrams to use
     :return: vectorizer
@@ -24,20 +22,18 @@ def create_vectorizer(feature_count=1000, ngram_range=(1, 2)):
     return vect
 
 def build_model_random_forest(vectorizer, x_verbose=2):
-    """
-    Build a random forest model
+    """ Build a random forest model
     :param vectorizer: vectorizer object
     :return: classifier model
     """
-    classifier = RandomForestClassifier(n_jobs=4, verbose=x_verbose)
+    classifier = RandomForestClassifier(n_jobs=4, verbose=x_verbose, max_depth=50, min_samples_leaf=1, min_samples_split=5)
     model = pipeline.Pipeline([("vectorizer", vectorizer),
                                ("classifier", classifier)])
     
     return model
 
 def build_model_naive_bayes(vectorizer, x_alpha=0.01):
-    """
-    Build a naive bayes model
+    """ Build a naive bayes model
     :param vectorizer: vectorizer object
     :return: classifier model
     """
@@ -48,21 +44,19 @@ def build_model_naive_bayes(vectorizer, x_alpha=0.01):
     return model
 
 def build_model_logistic_regression(vectorizer):
-    """
-    Build a classifier model
+    """ Build a classifier model
     :param vectorizer: vectorizer object
     :param alg: what classifier algorithm to use
     :return: classifier model
     """
-    classifier = LogisticRegression(random_state=0)
+    classifier = LogisticRegression(random_state=0, C=1.62)
     model = pipeline.Pipeline([("vectorizer", vectorizer),
                                ("classifier", classifier)])
     
     return model
 
 def train_model(model, feature_matrix, train_values):
-    """
-    Train classifier model
+    """ Train classifier model
     :param model: classifier model
     :param feature_matrix: feature matrix
     :param train_values: values to train the model on
@@ -72,8 +66,7 @@ def train_model(model, feature_matrix, train_values):
     return model
 
 def test_model(model, test_review_values):
-    """
-    Get predicted values from test set
+    """ Get predicted values from test set
     :param model: classifier model
     :param test_review_values: values to test with
     :return: predicted values (binary), predicted values (probability)
@@ -83,8 +76,7 @@ def test_model(model, test_review_values):
     return predicted, predicted_prob
 
 def get_common_metrics(test_values, predicted):
-    """
-    Return some common classifier metrics
+    """ Return some common classifier metrics
     :param test_values: values to test with
     :param predicted: predicted values
     :return: accuracy, precision and recall value
@@ -96,8 +88,7 @@ def get_common_metrics(test_values, predicted):
 
 
 def get_auc(test_values, predicted):
-    """
-    Get area under the curve value
+    """ Get area under the curve value
     :param test_values: values to test with
     :param predicted: predicted values
     :return: auc value
@@ -108,8 +99,7 @@ def get_auc(test_values, predicted):
 
 
 def get_f1_score(precision, recall):
-    """
-    Calculate and return F1 score
+    """ Calculate and return F1 score
     :param precision: precision score
     :param recall: recall score
     :return: F1 score

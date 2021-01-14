@@ -17,7 +17,7 @@ MANUAL_REVIEWS_PATH = os.path.join(STATIC_DIR, "csv/manual_reviews.csv")
 CITIES_URL_PICKLE_PATH_ = os.path.join(STATIC_DIR, "pickle/city_urls.pkl")
 HOTELS_URL_PICKLE_PATH = os.path.join(STATIC_DIR, "pickle/hotel_urls.pkl") 
 SCRAPED_RAW_REVIEWS_PICKLE = os.path.join(STATIC_DIR, "pickle/raw_reviews.pkl") 
-MERGED_REVIEWS_PATH = os.path.join(STATIC_DIR, "merged_review.pkl")
+MERGED_REVIEWS_PATH = os.path.join(STATIC_DIR, "pickle/merged_review.pkl")
 
 # Pickle models
 RANDOM_FOREST_MODEL_PATH = os.path.join(STATIC_DIR, "pickle/random_forest_model.pkl")

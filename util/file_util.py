@@ -35,3 +35,16 @@ def pickle_model(model, destination):
     else:
         with open(destination, 'wb') as f:
             pickle.dump(model, f)
+
+def get_pickled_object(source):
+    """
+    Reads from a file and unpickles the stored object
+    :param filepath: where the file is
+    :return: unpickled object
+    """
+    with open(source, 'rb') as f:
+        try:
+            unpickled_object = pickle.load(f)
+            return unpickled_object
+        except pickle.UnpicklingError as e:
+            raise e
